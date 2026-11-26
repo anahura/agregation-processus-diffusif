@@ -15,11 +15,9 @@ def simulator(grid_size, n_particles):
         r_kill_sq= r_kill ** 2
         #on tire un angle aléatoire pour la particule
         theta = np.random.uniform(0, 2 * np.pi)
-        #on tire un rayon aléatoire pour la particule
-        r = np.random.uniform(r_spawn, r_kill)
-        #on calcule les coordonnées de la particule
-        x = int(grid_center + r * np.cos(theta))
-        y = int(grid_center + r * np.sin(theta))
+        #toutes les particules spawn au même rayon r_spawn
+        x = int(round(grid_center + r_spawn * np.cos(theta)))
+        y = int(round(grid_center + r_spawn * np.sin(theta)))
         #on vérifie que la particule est dans les limites de la grille
         if x < 0 or x >= grid_size or y < 0 or y >= grid_size:
             continue
@@ -94,3 +92,4 @@ if __name__ == "__main__":
     donc la proba de croissance de chaque périmètre est uniforme, 
     et souvent l'agrégat a tendance à se développer dans une direction particulière, ``
     bug avec la dimension fractale  qui est estimée à ~0.01"""
+    
