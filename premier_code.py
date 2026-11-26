@@ -1,5 +1,8 @@
 import numpy as np
 
+#déplacements autorisés : haut, bas, gauche, droite (pas de diagonale)
+DIRECTIONS = [(1, 0), (-1, 0), (0, 1), (0, -1)]
+
 def simulator(grid_size, n_particles):
     grid = np.zeros((grid_size, grid_size))
     grid_center = grid_size // 2
@@ -26,8 +29,10 @@ def simulator(grid_size, n_particles):
             #on tire un angle aléatoire pour le mouvement de la particule
             theta = np.random.uniform(0, 2 * np.pi)
             # on fait bouger la particule via mouvement brownien (marche aléatoire)
-            x_new = x + np.random.choice([-1, 0, 1])
-            y_new = y + np.random.choice([-1, 0, 1]) #si on fait ca le problème est que 
+            #pas de déplacement en diagonale : un seul des deux axes bouge de ±1
+            dx, dy = DIRECTIONS[np.random.randint(len(DIRECTIONS))]
+            x_new = x + dx
+            y_new = y + dy
             #on vérifie que la particule est dans les limites de la grille
             if x_new < 0 or x_new >= grid_size or y_new < 0 or y_new >= grid_size:
                 break
